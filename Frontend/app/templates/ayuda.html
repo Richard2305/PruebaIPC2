@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>TChapinas</title>
+
+    <style>
+      .bg-pattern {
+        background-color: #d3d3d3;
+        background-image: url('../static/images/Index.jpg');
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+    {% include "navbar.html" %}
+
+    <div class="h-screen mt-[70px] bg-pattern flex items-center justify-center">
+      <div class="flex flex-col items-center space-y-12 bg-gray-400/60 p-8 rounded-lg w-[600px] h-[400px]">
+        <h1 class="text-5xl font-bold text-black">Opciones</h1>
+
+        <a href="{% url 'datos_estudiante' %}"
+           class="text-[18px] bg-[#2a9f8e] hover:bg-pink-600 text-white font-bold py-6 px-4 rounded w-[80%] text-center transform transition duration-300 ease-in-out hover:scale-105">
+           Informacion del estudiante
+        </a>
+
+        <a href="{% url 'doc' %}"
+           class="text-[18px] bg-[#15ac1e] hover:bg-red-700 text-white font-bold py-6 px-4 rounded w-[80%] text-center transform transition duration-300 ease-in-out hover:scale-105 ">
+           Documentación
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

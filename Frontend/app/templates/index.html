@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CDN -->
+
+    <title>TChapinas</title>
+  </head>
+  <body>
+    {% include "navbar.html" %}
+
+    <div
+    class="h-screen mt-[70px] w-full bg-cover bg-center flex items-center justify-center"
+    style="background-image: url('../static/images/Index.jpg');"
+    >
+      <div
+        class="w-full max-w-md p-6 shadow-2xl rounded-lg flex flex-col items-center"
+        style="background-image: url('../static/images/BG-Icono.jpg'); background-size: cover;"
+      >
+        <div class="mb-6">
+          <img
+            src='../static/images/Icono.png'
+            class="w-[400px] h-[400px] rounded-lg"
+            alt="Logo Tecnologías Chapinas"
+          />
+        </div>
+        <h1 class="text-2xl font-bold mb-8" style="color: white;">Tecnologías Chapinas, S.A.</h1>
+        <p class="text-center" style="color: white;">
+          Tecnología que Impulsa Guatemala
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

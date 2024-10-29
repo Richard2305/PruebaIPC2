@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TChapinas</title>
+  
+    {% load static %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    
+    
+    <style>
+        .bg-pattern {
+            background-color: #d3d3d3;
+            background-image: url("https://i.pinimg.com/1200x/ea/61/23/ea6123f403ebc08658ee18d4908cd573.jpg");
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        iframe {
+            width: 100%;  /* Ajusta el ancho según sea necesario */
+            height: 100%; /* Ajusta la altura según sea necesario */
+            border: none; /* Elimina el borde del iframe */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    {% include "navbar.html" %}
+    <!-- Main Content -->
+    <div class="h-screen bg-pattern flex items-center justify-center">
+        <iframe src="{% static 'Ensayo Proyecto 3.pdf' %}" allowfullscreen></iframe>
+
+    </div>
+</body>
+</html>
