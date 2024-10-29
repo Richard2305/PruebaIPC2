@@ -10,9 +10,8 @@ urlpatterns = [
     path('configurar/', views.configurar, name='configurar'),
     path('visualizarXML/', views.visualizarXML, name='visualizarXML'),
     path('subirXML/', views.subirXML, name='subirXML'),
-    path('cardsPizza/', views.cardsPizza, name='cardsPizza'),
-    path('verPizzaDetalle/<str:id>/', views.verPizzaDetalle, name='verPizzaDetalle'),
-   path('ayuda/', views.ayuda, name='ayuda'),
-   path('datos_estudiante/', views.datos_estudiante, name='datos_estudiante'),
-   path('doc/', views.doc, name='doc'),
+    path('ayuda/', views.ayuda, name='ayuda'),
+    path('datos_estudiante/', views.datos_estudiante, name='datos_estudiante'),
+    path('doc/', views.doc, name='doc'),
+    path('peticiones/', views.peticiones, name='peticiones'),
 ]

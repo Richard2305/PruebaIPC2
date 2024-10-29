@@ -17,67 +17,44 @@
 
     <div class="h-screen mt-[70px] bg-pattern flex items-center justify-center">
         <div class="flex w-full h-full">
-          <!-- Left Side - Upload Section -->
-          <div class="w-1/2 bg-gray-500/90 flex flex-col justify-center items-center space-y-4">
-            <div class="text-center w-full px-8 mt-[-60px]">
-              <h1 class="text-4xl font-bold text-black">Subir Archivo</h1>              
-              <p class="text-black mt-4">Selecciona el Archivo .xml de configuración</p>  
-              
-              <form enctype="multipart/form-data" method="POST" action="{% url 'visualizarXML' %}">
-                  {% csrf_token %}
-                  <input type="file" id="file" name="file" accept="text/xml" class="mt-4 w-full" required />
-                  <button type="submit" class="mt-4 bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                      Enviar
-                  </button>
-              </form>
-              
-              {% if xml_content %}
-                  <textarea class="w-full h-96 mt-4 rounded-lg p-4" name="xml" id="xml">{{ xml_content }}</textarea>
-              {% else %}
-                  <textarea class="w-full h-96 mt-4 rounded-lg p-4" name="xml" id="xml" placeholder="Aquí aparecerá el contenido XML una vez subido."></textarea>
-              {% endif %}
+            
+            <!-- Lado Izquierdo - Sección de carga y visualización del archivo XML subido -->
+            <div class="w-1/2 bg-gray-500/90 flex flex-col justify-center items-center space-y-4">
+                <div class="text-center w-full px-8 mt-[-60px]">
+                    <h1 class="text-4xl font-bold text-black">Subir Archivo</h1>
+                    <p class="text-black mt-4">Selecciona el Archivo .xml de configuración</p>
+                    
+                    <form enctype="multipart/form-data" method="POST" action="{% url 'visualizarXML' %}">
+                        {% csrf_token %}
+                        <input type="file" id="file" name="file" accept="text/xml" class="mt-4 w-full" required />
+                        <button type="submit" class="mt-4 bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
+                    </form>
+                    
+                    {% if xml_content %}
+                        <textarea class="w-full h-96 mt-4 rounded-lg p-4" name="xml" id="xml">{{ xml_content }}</textarea>
+                    {% else %}
+                        <textarea class="w-full h-96 mt-4 rounded-lg p-4" name="xml" id="xml" placeholder="Aquí aparecerá el contenido XML una vez subido."></textarea>
+                    {% endif %}
+                </div>
             </div>
-          </div>
-  
-          <!-- Right Side - Response Section -->
-          <div class="w-1/2 bg-blue-950/70 flex flex-col justify-center items-center space-y-4">
-            <div class="text-center w-full px-8">
-              <h1 class="text-4xl font-bold text-black">Respuesta</h1>
-              <ul class="w-full h-96 mt-4 overflow-y-auto rounded-lg p-4 bg-white">
-                  {% if response_data %}
-                      <li><strong>Fecha:</strong> {{ response_data.fecha }}</li>
-                      <li><strong>Total Mensajes:</strong> {{ response_data.mensajes.total }}</li>
-                      <li><strong>Positivos:</strong> {{ response_data.mensajes.positivos }}</li>
-                      <li><strong>Negativos:</strong> {{ response_data.mensajes.negativos }}</li>
-                      <li><strong>Neutros:</strong> {{ response_data.mensajes.neutros }}</li>
-                      {% for empresa in response_data.analisis %}
-                          <li class="mt-4"><strong>Empresa:</strong> {{ empresa.nombre }}</li>
-                          <ul>
-                              <li><strong>Mensajes Totales:</strong> {{ empresa.mensajes.total }}</li>
-                              <li><strong>Positivos:</strong> {{ empresa.mensajes.positivos }}</li>
-                              <li><strong>Negativos:</strong> {{ empresa.mensajes.negativos }}</li>
-                              <li><strong>Neutros:</strong> {{ empresa.mensajes.neutros }}</li>
-                              {% for servicio in empresa.servicios %}
-                                  <li class="mt-2"><strong>Servicio:</strong> {{ servicio.nombre }}</li>
-                                  <ul>
-                                      <li><strong>Mensajes Totales:</strong> {{ servicio.mensajes.total }}</li>
-                                      <li><strong>Positivos:</strong> {{ servicio.mensajes.positivos }}</li>
-                                      <li><strong>Negativos:</strong> {{ servicio.mensajes.negativos }}</li>
-                                      <li><strong>Neutros:</strong> {{ servicio.mensajes.neutros }}</li>
-                                  </ul>
-                              {% endfor %}
-                          </ul>
-                      {% endfor %}
-                  {% else %}
-                      <li>No se ha procesado ninguna respuesta aún.</li>
-                  {% endif %}
-              </ul>
-              {% if response_message %}
-                  <p class="mt-4 text-green-600 font-bold">{{ response_message }}</p>
-              {% endif %}
+    
+            <!-- Lado Derecho - Sección para mostrar la respuesta procesada en XML -->
+            <div class="w-1/2 bg-blue-950/70 flex flex-col justify-center items-center space-y-4">
+                <div class="text-center w-full px-8">
+                    <h1 class="text-4xl font-bold text-black">Respuesta</h1>
+                    <textarea class="w-full h-96 mt-4 overflow-y-auto rounded-lg p-4 bg-white" readonly>
+                        {% if xml_output_content %}
+                            {{ xml_output_content }}
+                        {% else %}
+                            Aquí aparecerá la salida XML procesada.
+                        {% endif %}
+                    </textarea>
+                    {% if response_message %}
+                        <p class="mt-4 text-green-600 font-bold">{{ response_message }}</p>
+                    {% endif %}
+                </div>
             </div>
-          </div>
-      </div>
+        </div>
     </div>
 </body>
 </html>

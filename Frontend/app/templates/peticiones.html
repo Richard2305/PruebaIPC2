@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Peticiones</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <h1 style="margin-top: 80px;">Peticiones</h1>
+    <form id="formPeticiones" method="POST">
+        {% csrf_token %}
+        <label for="opcion">Seleccione una opción:</label>
+        <select name="opcion" id="opcion">
+            <option value="consultar">Consultar Datos</option>
+            <option value="resumen_fecha">Resumen de Clasificación por Fecha</option>
+            <option value="resumen_rango">Resumen por Rango de Fechas</option>
+        </select>
+        <button type="button" onclick="enviarPeticion()">Enviar</button>
+    </form>
+
+    <div id="resultado">
+        <canvas id="chartCanvas" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('chartCanvas').getContext('2d');
+        let chart;
+
+        function renderChart(data) {
+            if (chart) {
+                chart.destroy();
+            }
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Total", "Positivos", "Negativos", "Neutros"],
+                    datasets: [{
+                        label: "Mensajes Clasificados",
+                        data: [data.total, data.positivos, data.negativos, data.neutros],
+                        backgroundColor: ["#4CAF50", "#2196F3", "#F44336", "#FFC107"]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function enviarPeticion() {
+            const form = document.getElementById('formPeticiones');
+            const formData = new FormData(form);
+            axios.post("{% url 'peticiones' %}", formData)
+                .then(response => {
+                    const resultado = document.getElementById("resultado");
+                    if (response.data.grafico_datos) {
+                        renderChart(response.data.grafico_datos);
+                    } else {
+                        resultado.innerText = response.data.data || "Acción completada";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+    </script>
+</body>
+</html>
